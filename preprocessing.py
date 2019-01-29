@@ -19,6 +19,7 @@ HEADER = [
     "License",
     "standard workflow July 18",
     "Production Editor",
+    "Catalogue",
     "Netherlands",
     "MPG",
     "UK",
@@ -60,16 +61,17 @@ def main():
         for product_id in list(csv_content[sca_member].keys()):
             journal_data = csv_content[sca_member][product_id]
             journal_data[sca_member] = "TRUE"
-            title = csv_content[sca_member][product_id]["Title"]
             del csv_content[sca_member][product_id]
             for other_member in other_members:
                 if product_id in csv_content[other_member]:
-                    other_title = csv_content[other_member][product_id]["Title"]
-                    if title != other_title:
-                        msg = ('WARNING: Title mismatch for journal {} between {} and {} list: ' +
-                               '"{}" vs "{}"')
-                        msg = msg.format(product_id, sca_member, other_member, title, other_title)
-                        print(msg)
+                    for column in ["Title", "Open Access", "ISSN print", "ISSN electronic"]:
+                        value = journal_data[column]
+                        other_value = csv_content[other_member][product_id][column]
+                        if value != other_value:
+                            msg = ('WARNING: {} mismatch for journal {} between {} and {} list: ' +
+                                   '"{}" vs "{}"')
+                            msg = msg.format(column, product_id, sca_member, other_member, value, other_value)
+                            print(msg)
                     del csv_content[other_member][product_id]
                     journal_data[other_member] = "TRUE"
                 else:
