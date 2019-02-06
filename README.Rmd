@@ -1,0 +1,71 @@
+```{r, echo = FALSE, warning = TRUE}
+
+knitr::opts_knit$set(base.url = "/")
+knitr::opts_chunk$set(
+  comment = "#>",
+  collapse = TRUE,
+  warning = FALSE,
+  message = FALSE,
+  echo = FALSE,
+  fig.width = 9,
+  fig.height = 6
+)
+options(scipen = 20, digits = 2)
+
+```
+
+```{r}
+require(dplyr)
+require(tidyr)
+require(ggplot2)
+require(tibble)
+require(pander)
+require(stringr)
+```
+
+```{r, echo=FALSE, cache = FALSE}
+
+journals <- readr::read_csv("combined_list.csv")
+
+common_journals <- journals %>% filter(Catalogue == TRUE & MPG == TRUE & Netherlands == TRUE & UK == TRUE & Austria == TRUE & Sweden == TRUE & Finland == TRUE & Hungary == TRUE & Poland == TRUE)
+
+count_list <- journals %>% select(Catalogue, MPG, Netherlands, UK, Austria, Sweden, Finland, Hungary, Poland) %>% summarise_all(sum) %>% add_column("Combined list" = nrow(journals))
+
+count_list <- as_tibble(cbind(list = names(count_list), t(count_list)))
+
+knitr::kable(count_list, col.names=c("journal list", "count"))
+
+uncommon_journals <- setdiff(journals, common_journals) 
+
+plot_data <- uncommon_journals %>% select(Title, Catalogue, MPG, Netherlands, UK, Austria, Sweden, Finland, Hungary, Poland)
+
+plot_data
+
+ggplot(data = plot_data) + 
+  geom_point(mapping = aes(x = Title, y = as.numeric(UK)))
+```
+
+Common Journals: `r nrow(common_journals)`
+
+## 1. Introduction
+
+It is known that portfolios of eligible journals for the [Springer Compact Agreements](https://www.springer.com/de/open-access/springer-open-choice/springer-compact) (SCA) differ between consortional partners. This evaluation is meant to analyse those differences and also relate them to the full catalogue of hybrid Springer journals ("Open Choice").
+
+## 2. Data origins
+
+Springer provides individual lists of eligible journals for all participants on its web site, those can be [downloaded in PDF Format](https://www.springer.com/de/open-access/springer-open-choice/springer-compact/agreements-dutch-authors) ("Click here for a list of Open Choice eligible subscription-based journals covered by the Open Access agreement with Dutch universities and Academy institutes"). 
+The according files have been obtained for all consortional partners (Netherlands, UK, Sweden, Austria, Finland, Poland, Hungary and the Max Planck Society (MPG)) and can be found [here](raw_pdf_lists).
+Springer also provides a full catalogue of published journals as an Excel spreadsheet which can be found [here](https://www.springernature.com/de/librarians/licensing/journals-price-list) ("2019 Springer Nature Journals including Open Access").
+
+## 3. Data preprocessing
+
+Our goal was to compile a full list of Springer hybrid journals, with a set of binary variables to indicate if a journal is present in a specific sub list. This was done via the following steps:
+
+### 3.1 PDF extraction
+
+Since the SCA journal lists were only available in PDF format, a machine-readable variant had to be extracted first. This was done using the [Tabula](https://tabula.technology/) toolkit, the resulting CSV files are to be found [here](extracted_csvs).
+
+### 3.2 Catalogue filtering
+
+The full Springer journal catalogue contains both fully OA and hybrid journals. Since only the latter are relevant to the SCA programme, 
+
