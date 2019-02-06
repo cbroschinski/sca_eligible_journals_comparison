@@ -11,17 +11,53 @@ knitr::opts_chunk$set(
   fig.height = 6
 )
 options(scipen = 20, digits = 2)
-
 ```
 
 ```{r}
 require(dplyr)
-require(tidyr)
-require(ggplot2)
 require(tibble)
-require(pander)
 require(stringr)
 ```
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" href="DataTables/datatables.min.css"/>
+<script type="text/javascript" src="DataTables/datatables.min.js"></script>
+</head>
+
+<body>
+<script>
+$(document).ready(function () {
+    var table = $('table').last();
+    table.children('thead').append('<tr class="name_row"></tr>');
+    table.children('thead').each(function () {
+        $(this).children('tr').first().attr('class', 'search_row');
+    })
+    $('.search_row th').each(function() {
+        $(this).parent().siblings('.name_row').append($(this).clone());
+        var col_text = $(this).text();
+        var width = $(this).css('width');
+        $th = '<div style="width: ' + width + '"><input type="text" placeholder="'+col_text+'" data-column-name="' + col_text + '"></div>';
+        $(this).html($th);
+    });
+    var data_table = table.DataTable();
+    data_table.columns().every(function () {
+        var column = this;
+        var header_text = $(column.header()).text();
+        var $input = $('input[data-column-name="' + header_text + '"]');
+        if ($('.FixedHeader_Cloned').length) {
+            var $input = $('.FixedHeader_Cloned input[data-column-name="' + header_text + '"]');
+        }
+        $input.off('keyup change');
+        $input.on('keyup change', function() {
+            column.search($input.val()).draw();
+        });
+    });
+});
+</script>
+
 
 ```{r, echo=FALSE, cache = FALSE}
 
@@ -29,23 +65,19 @@ journals <- readr::read_csv("combined_list.csv")
 
 common_journals <- journals %>% filter(Catalogue == TRUE & MPG == TRUE & Netherlands == TRUE & UK == TRUE & Austria == TRUE & Sweden == TRUE & Finland == TRUE & Hungary == TRUE & Poland == TRUE)
 
+catalogue <- journals %>% filter(Catalogue == TRUE)
+
 count_list <- journals %>% select(Catalogue, MPG, Netherlands, UK, Austria, Sweden, Finland, Hungary, Poland) %>% summarise_all(sum) %>% add_column("Combined list" = nrow(journals))
 
 count_list <- as_tibble(cbind(list = names(count_list), t(count_list)))
 
-knitr::kable(count_list, col.names=c("journal list", "count"))
-
 uncommon_journals <- setdiff(journals, common_journals) 
 
-plot_data <- uncommon_journals %>% select(Title, Catalogue, MPG, Netherlands, UK, Austria, Sweden, Finland, Hungary, Poland)
+uncommon_journals_table_data <- uncommon_journals %>% select(Title, product_id, Catalogue, MPG, Netherlands, UK, Austria, Sweden, Finland, Hungary, Poland) %>% mutate(product_id = str_c("[", product_id, "](https://link.springer.com/journal/", product_id, ")"))
 
-plot_data
+uncommon_journals_table_data
 
-ggplot(data = plot_data) + 
-  geom_point(mapping = aes(x = Title, y = as.numeric(UK)))
 ```
-
-Common Journals: `r nrow(common_journals)`
 
 ## 1. Introduction
 
@@ -57,15 +89,37 @@ Springer provides individual lists of eligible journals for all participants on 
 The according files have been obtained for all consortional partners (Netherlands, UK, Sweden, Austria, Finland, Poland, Hungary and the Max Planck Society (MPG)) and can be found [here](raw_pdf_lists).
 Springer also provides a full catalogue of published journals as an Excel spreadsheet which can be found [here](https://www.springernature.com/de/librarians/licensing/journals-price-list) ("2019 Springer Nature Journals including Open Access").
 
-## 3. Data preprocessing
+## 3. Data processing
 
-Our goal was to compile a full list of Springer hybrid journals, with a set of binary variables to indicate if a journal is present in a specific sub list. This was done via the following steps:
+Our goal was to compile a full list of Springer hybrid journals, with a set of binary variables to indicate if a journal is present in a specific sub list. The following steps were carried out:
 
 ### 3.1 PDF extraction
 
-Since the SCA journal lists were only available in PDF format, a machine-readable variant had to be extracted first. This was done using the [Tabula](https://tabula.technology/) toolkit, the resulting CSV files are to be found [here](extracted_csvs).
+Since the SCA journal lists were only available in PDF format, a machine-readable variant had to be extracted first. This was done using the [Tabula](https://tabula.technology/) toolkit, the resulting CSV files can be found [here](extracted_csvs).
 
 ### 3.2 Catalogue filtering
 
-The full Springer journal catalogue contains both fully OA and hybrid journals. Since only the latter are relevant to the SCA programme, 
+The full Springer journal catalogue contains both fully OA and hybrid journals. Since only the latter are relevant to the SCA programme, the table was filtered, keeping only those entries with the value "Hybrid (Open Choice)" in the "open access" column. The spreadsheet was then exported to CSV (Catalogue.csv).
 
+### 3.3 Creation of a combined list
+
+A python [preprocessing script](preprocessing.py) creates a [combined, duplicate-free list](combined_list.csv) of all journals appearing in any of the created CSV files. 
+The column "product_id" serves as primary key to find matching journals, other identifiers like title or ISSNs turned out to be inconsistent between the lists. The script notifies of such cases, an attached [log file](preprocessing_log.txt) shows the output.
+
+### 4. Analysis
+
+The combined lists consists of `r nrow(journals)` entries, which is already surprising, as the list of hybrid journals filtered from the Springer catalogue only contains `r nrow(catalogue)` entries - there are `r nrow(journals) - nrow(catalogue)` journals which appear in some of the SCA eligibility lists, but not in the official catalogue.
+
+The following table shows the number of journals contained in each list:
+
+``` {r, echo=FALSE, cache = FALSE}
+knitr::kable(count_list, col.names=c("journal list", "count"))
+```
+
+Out of these `r nrow(journals)` total entries, `r nrow(common_journals)` are common journals - they appear in all the SCA eligibility lists and also in the catalogue. This means that there's a set of `r nrow(uncommon_journals)` journals which are missing in at least one of the lists. The following table shows those journals and the list they are (not) part of:
+
+``` {r, echo=FALSE, cache = FALSE}
+knitr::kable(uncommon_journals_table_data, col.names=c("Title", "product_id", "Catalogue", "MPG", "Netherlands", "UK", "Austria", "Sweden", "Finland", "Hungary", "Poland"))
+```
+</body>
+</html>
