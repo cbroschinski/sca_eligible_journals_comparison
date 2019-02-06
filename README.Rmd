@@ -75,8 +75,6 @@ uncommon_journals <- setdiff(journals, common_journals)
 
 uncommon_journals_table_data <- uncommon_journals %>% select(Title, product_id, Catalogue, MPG, Netherlands, UK, Austria, Sweden, Finland, Hungary, Poland) %>% mutate(product_id = str_c("[", product_id, "](https://link.springer.com/journal/", product_id, ")"))
 
-uncommon_journals_table_data
-
 ```
 
 ## 1. Introduction

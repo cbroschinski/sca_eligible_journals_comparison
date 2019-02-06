@@ -43,23 +43,6 @@ $(document).ready(function () {
 
 
 
-```
-#> # A tibble: 357 x 11
-#>    Title product_id Catalogue MPG   Netherlands UK    Austria Sweden
-#>    <chr> <chr>      <lgl>     <lgl> <lgl>       <lgl> <lgl>   <lgl> 
-#>  1 Adap… [40750](h… TRUE      TRUE  FALSE       TRUE  TRUE    TRUE  
-#>  2 ADHD… [12402](h… TRUE      TRUE  TRUE        TRUE  TRUE    FALSE 
-#>  3 Air … [11869](h… TRUE      TRUE  TRUE        TRUE  FALSE   TRUE  
-#>  4 Amer… [12103](h… TRUE      TRUE  TRUE        TRUE  TRUE    FALSE 
-#>  5 Anna… [12149](h… TRUE      TRUE  TRUE        TRUE  FALSE   TRUE  
-#>  6 Apop… [10495](h… TRUE      TRUE  FALSE       TRUE  TRUE    TRUE  
-#>  7 Appl… [13765](h… FALSE     TRUE  TRUE        TRUE  TRUE    TRUE  
-#>  8 Appl… [10443](h… TRUE      TRUE  TRUE        TRUE  TRUE    FALSE 
-#>  9 Arch… [11759](h… TRUE      TRUE  TRUE        TRUE  FALSE   TRUE  
-#> 10 Arch… [404](htt… TRUE      TRUE  FALSE       TRUE  TRUE    TRUE  
-#> # ... with 347 more rows, and 3 more variables: Finland <lgl>,
-#> #   Hungary <lgl>, Poland <lgl>
-```
 
 ## 1. Introduction
 
