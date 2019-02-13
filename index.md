@@ -6,6 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="DataTables/datatables.min.css"/>
 <script type="text/javascript" src="DataTables/datatables.min.js"></script>
 </head>
@@ -41,17 +42,22 @@ $(document).ready(function () {
 });
 </script>
 
+<div class="container-fluid">
 
 
+
+
+# Comparison of journal eligibility lists for Springer Compact Agreements (SCA)
 
 ## 1. Introduction
 
-It is known that portfolios of eligible journals for the [Springer Compact Agreements](https://www.springer.com/de/open-access/springer-open-choice/springer-compact) (SCA) differ between consortional partners. This evaluation is meant to analyse those differences and also relate them to the full catalogue of hybrid Springer journals ("Open Choice").
+It is known that portfolios of eligible journals for the [Springer Compact Agreements](https://www.springer.com/de/open-access/springer-open-choice/springer-compact) (SCA) differ between consortional partners. 
+This evaluation is meant to analyse those differences and also relate them to the full catalogue of hybrid Springer journals ("Open Choice"). Results are expected to be useful for further analyses on the effects and impacts of SCAs, like the [Coverage Analysis](https://openapc.github.io/general/openapc/2018/03/22/offsetting-coverage/) conducted by our [OpenAPC](https://github.com/OpenAPC/openapc-de) project or the impact estimations made by Jisc.
 
 ## 2. Data origins
 
 Springer provides individual lists of eligible journals for all participants on its web site, those can be [downloaded in PDF Format](https://www.springer.com/de/open-access/springer-open-choice/springer-compact/agreements-dutch-authors) ("Click here for a list of Open Choice eligible subscription-based journals covered by the Open Access agreement with Dutch universities and Academy institutes"). 
-The according files have been obtained for all consortional partners (Netherlands, UK, Sweden, Austria, Finland, Poland, Hungary and the Max Planck Society (MPG)) and can be found [here](raw_pdf_lists).
+The according files have been obtained for all consortional partners (Netherlands, UK, Sweden, Austria, Finland, Poland, Hungary and the Max Planck Society (MPG)) and can be found [here](https://github.com/cbroschinski/sca_eligible_journals_comparison/tree/master/raw_pdf_lists).
 Springer also provides a full catalogue of published journals as an Excel spreadsheet which can be found [here](https://www.springernature.com/de/librarians/licensing/journals-price-list) ("2019 Springer Nature Journals including Open Access").
 
 ## 3. Data processing
@@ -73,8 +79,6 @@ The column "product_id" serves as primary key to find matching journals, other i
 
 ### 4. Analysis
 
-The combined lists consists of 2015 entries, which is already surprising, as the list of hybrid journals filtered from the Springer catalogue only contains 1996 entries - there are 19 journals which appear in some of the SCA eligibility lists, but not in the official catalogue.
-
 The following table shows the number of journals contained in each list:
 
 
@@ -91,7 +95,8 @@ The following table shows the number of journals contained in each list:
 |Poland        |1844  |
 |Combined list |2015  |
 
-Out of these 2015 total entries, 1658 are common journals - they appear in all the SCA eligibility lists and also in the catalogue. This means that there's a set of 357 journals which are missing in at least one of the lists. The following table shows those journals and the list they are (not) part of:
+Out of these 2015 total entries, 1658 are common journals - they appear in all the SCA eligibility lists and also in the catalogue. This means that there's a set of 357 journals which are missing in at least one of the lists. The following interactive table shows those journals and the list they are (not) part of. 
+The list may be filtered to certain combinations by entering TRUE oder FALSE into the search fields above the column headers. The entry in the product_id column links to the journal landing page on SpringerLink for easy reference.
 
 
 |Title                                                                                      |product_id                                       |Catalogue |MPG   |Netherlands |UK    |Austria |Sweden |Finland |Hungary |Poland |
@@ -453,5 +458,16 @@ Out of these 2015 total entries, 1658 are common journals - they appear in all t
 |International Journal of Educational Technology in Higher Education                        |[41239](https://link.springer.com/journal/41239) |FALSE     |FALSE |FALSE       |TRUE  |FALSE   |FALSE  |FALSE   |FALSE   |FALSE  |
 |Gynecological Surgery                                                                      |[10397](https://link.springer.com/journal/10397) |FALSE     |FALSE |FALSE       |TRUE  |FALSE   |FALSE  |FALSE   |FALSE   |FALSE  |
 |Environmental Health and Preventive Medicine                                               |[12199](https://link.springer.com/journal/12199) |FALSE     |FALSE |FALSE       |TRUE  |FALSE   |FALSE  |FALSE   |FALSE   |FALSE  |
+
+### 5. Results
+
+Key insights from the filtering table are:
+
+- There are significant differences both between the eligibility lists and the catalogue. 
+- The combined list consists of 2015 entries, which is surprising, as the list of hybrid journals filtered from the Springer catalogue only contains 1996 entries - there are 19 journals which appear in some of the SCA eligibility lists, but not in the official catalogue. 
+A closer investigation reveals that a lot of those cases are related to journals having been transferred to other publishers in the beginning of 2019. This indicates that the eligibility lists are not updated frequently (or not at all?).
+- The Swedish, Hungarian, Polish and Finnish eligibilty lists are identical. While the latter cases can be explained with a common start date (They all came into effect in 2019), it is unclear why they are identical to the Swedish list, with the corresponding SCA already running since 2016. It seems as if the Swedish list was used as a template for the new SCAs.
+
+</div>
 </body>
 </html>

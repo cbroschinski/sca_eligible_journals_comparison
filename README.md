@@ -1,7 +1,7 @@
 ## About
 
 This repository contains scripts, source data and dynamic documents supporting an evaluation on journals eligible for the [Springer Compact Agreements](https://www.springer.com/de/open-access/springer-open-choice/springer-compact). 
-Find the resulting report [here](https://cbroschinski.github.io/sca_eligible_journals_comparison/)
+Find the resulting report [here](https://cbroschinski.github.io/sca_eligible_journals_comparison/).
 
 ## Report generation
 
