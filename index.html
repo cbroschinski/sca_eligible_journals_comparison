@@ -49,11 +49,11 @@ $(document).ready(function () {
 <h2 id="3-data-processing">3. Data processing</h2>
 <p>Our goal was to compile a full list of Springer hybrid journals, with a set of binary variables to indicate if a journal is present in a specific sub list. The following steps were carried out:</p>
 <h3 id="31-pdf-extraction">3.1 PDF extraction</h3>
-<p>Since the SCA journal lists were only available in PDF format, a machine-readable variant had to be extracted first. This was done using the <a href="https://tabula.technology/">Tabula</a> toolkit, the resulting CSV files can be found <a href="extracted_csvs">here</a>.</p>
+<p>Since the SCA journal lists were only available in PDF format, a machine-readable variant had to be extracted first. This was done using the <a href="https://tabula.technology/">Tabula</a> toolkit, the resulting CSV files can be found <a href="https://github.com/cbroschinski/sca_eligible_journals_comparison/tree/master/extracted_csvs">here</a>.</p>
 <h3 id="32-catalogue-filtering">3.2 Catalogue filtering</h3>
 <p>The full Springer journal catalogue contains both fully OA and hybrid journals. Since only the latter are relevant to the SCA programme, the table was filtered, keeping only those entries with the value &quot;Hybrid (Open Choice)&quot; in the &quot;open access&quot; column. The spreadsheet was then exported to CSV (Catalogue.csv).</p>
 <h3 id="33-creation-of-a-combined-list">3.3 Creation of a combined list</h3>
-<p>A python <a href="preprocessing.py">preprocessing script</a> creates a <a href="combined_list.csv">combined, duplicate-free list</a> of all journals appearing in any of the created CSV files. The column &quot;product_id&quot; serves as primary key to find matching journals, other identifiers like title or ISSNs turned out to be inconsistent between the lists. The script notifies of such cases, an attached <a href="preprocessing_log.txt">log file</a> shows the output.</p>
+<p>A python <a href="https://github.com/cbroschinski/sca_eligible_journals_comparison/blob/master/preprocessing.py">preprocessing script</a> creates a <a href="https://github.com/cbroschinski/sca_eligible_journals_comparison/blob/master/combined_list.csv">combined, duplicate-free list</a> of all journals appearing in any of the created CSV files. The column &quot;product_id&quot; serves as primary key to find matching journals, other identifiers like title or ISSNs turned out to be inconsistent between the lists. The script notifies of such cases, an attached <a href="https://github.com/cbroschinski/sca_eligible_journals_comparison/blob/master/preprocessing_log.txt">log file</a> shows the output.</p>
 <h3 id="4-analysis">4. Analysis</h3>
 <p>The following table shows the number of journals contained in each list:</p>
 <table>

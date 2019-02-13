@@ -66,7 +66,7 @@ Our goal was to compile a full list of Springer hybrid journals, with a set of b
 
 ### 3.1 PDF extraction
 
-Since the SCA journal lists were only available in PDF format, a machine-readable variant had to be extracted first. This was done using the [Tabula](https://tabula.technology/) toolkit, the resulting CSV files can be found [here](extracted_csvs).
+Since the SCA journal lists were only available in PDF format, a machine-readable variant had to be extracted first. This was done using the [Tabula](https://tabula.technology/) toolkit, the resulting CSV files can be found [here](https://github.com/cbroschinski/sca_eligible_journals_comparison/tree/master/extracted_csvs).
 
 ### 3.2 Catalogue filtering
 
@@ -74,8 +74,8 @@ The full Springer journal catalogue contains both fully OA and hybrid journals. 
 
 ### 3.3 Creation of a combined list
 
-A python [preprocessing script](preprocessing.py) creates a [combined, duplicate-free list](combined_list.csv) of all journals appearing in any of the created CSV files. 
-The column "product_id" serves as primary key to find matching journals, other identifiers like title or ISSNs turned out to be inconsistent between the lists. The script notifies of such cases, an attached [log file](preprocessing_log.txt) shows the output.
+A python [preprocessing script](https://github.com/cbroschinski/sca_eligible_journals_comparison/blob/master/preprocessing.py) creates a [combined, duplicate-free list](https://github.com/cbroschinski/sca_eligible_journals_comparison/blob/master/combined_list.csv) of all journals appearing in any of the created CSV files. 
+The column "product_id" serves as primary key to find matching journals, other identifiers like title or ISSNs turned out to be inconsistent between the lists. The script notifies of such cases, an attached [log file](https://github.com/cbroschinski/sca_eligible_journals_comparison/blob/master/preprocessing_log.txt) shows the output.
 
 ### 4. Analysis
 
