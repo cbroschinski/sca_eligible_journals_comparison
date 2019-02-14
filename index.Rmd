@@ -74,9 +74,7 @@ count_list <- journals %>% select(Catalogue, MPG, Netherlands, UK, Austria, Swed
 
 count_list <- as_tibble(cbind(list = names(count_list), t(count_list)))
 
-uncommon_journals <- setdiff(journals, common_journals) 
-
-uncommon_journals_table_data <- uncommon_journals %>% select(Title, product_id, Catalogue, MPG, Netherlands, UK, Austria, Sweden, Finland, Hungary, Poland) %>% mutate(product_id = str_c("[", product_id, "](https://link.springer.com/journal/", product_id, ")"))
+journals_table_data <- journals %>% select(Title, product_id, Catalogue, MPG, Netherlands, UK, Austria, Sweden, Finland, Hungary, Poland) %>% mutate(product_id = str_c("[", product_id, "](https://link.springer.com/journal/", product_id, ")"))
 
 ```
 
@@ -118,11 +116,11 @@ The following table shows the number of journals contained in each list:
 knitr::kable(count_list, col.names=c("journal list", "count"))
 ```
 
-Out of these `r nrow(journals)` total entries, `r nrow(common_journals)` are common journals - they appear in all the SCA eligibility lists and also in the catalogue. This means that there's a set of `r nrow(uncommon_journals)` journals which are missing in at least one of the lists. The following interactive table shows those journals and the list they are (not) part of. 
+Out of these `r nrow(journals)` total entries, `r nrow(common_journals)` are common journals - they appear in all the SCA eligibility lists and also in the catalogue. This means that there's a set of `r nrow(journals) - nrow(common_journals)` journals which are missing in at least one of the lists. The following interactive table shows all journals and the list they are (not) part of. 
 The list may be filtered to certain combinations by entering TRUE oder FALSE into the search fields above the column headers. The entry in the product_id column links to the journal landing page on SpringerLink for easy reference.
 
 ``` {r, echo=FALSE, cache = FALSE}
-knitr::kable(uncommon_journals_table_data, col.names=c("Title", "product_id", "Catalogue", "MPG", "Netherlands", "UK", "Austria", "Sweden", "Finland", "Hungary", "Poland"))
+knitr::kable(journals_table_data, col.names=c("Title", "product_id", "Catalogue", "MPG", "Netherlands", "UK", "Austria", "Sweden", "Finland", "Hungary", "Poland"))
 ```
 
 ### 5. Results
