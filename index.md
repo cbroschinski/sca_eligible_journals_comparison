@@ -51,8 +51,8 @@ $(document).ready(function () {
 
 ## 1. Introduction
 
-It is known that portfolios of eligible journals for the [Springer Compact Agreements](https://www.springer.com/de/open-access/springer-open-choice/springer-compact) (SCA) differ between consortional partners. 
-This evaluation is meant to analyse those differences and also relate them to the full catalogue of hybrid Springer journals ("Open Choice"). Results are expected to be useful for further analyses on the effects and impacts of SCAs, like the [Coverage Analysis](https://openapc.github.io/general/openapc/2018/03/22/offsetting-coverage/) conducted by our [OpenAPC](https://github.com/OpenAPC/openapc-de) project or the impact estimations made by Jisc.
+Recent evaluations conducted by Jisc have shown that the portfolios of eligible journals for the [Springer Compact Agreements](https://www.springer.com/de/open-access/springer-open-choice/springer-compact) (SCA) differ between consortional partners. 
+This evaluation is meant to provide a systematic framework to analyse those differences and also relate them to the full catalogue of hybrid Springer journals ("Open Choice"). Results are expected to be useful for further analyses on the effects and impacts of SCAs, like the [Coverage Analysis](https://openapc.github.io/general/openapc/2018/03/22/offsetting-coverage/) conducted by our [OpenAPC](https://github.com/OpenAPC/openapc-de) project or the impact estimations made by Jisc.
 
 ## 2. Data origins
 
