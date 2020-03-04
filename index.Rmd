@@ -80,6 +80,8 @@ journals_table_data <- journals %>% select(Title, product_id, Catalogue, MPG, Ne
 
 # Comparison of journal eligibility lists for Springer Compact Agreements (SCA)
 
+#### [Christoph Broschinski](https://github.com/cbroschinski), 02/2019
+
 ## 1. Introduction
 
 Recent evaluations conducted by Jisc have shown that the portfolios of eligible journals for the [Springer Compact Agreements](https://www.springer.com/de/open-access/springer-open-choice/springer-compact) (SCA) differ between consortional partners. 
@@ -90,6 +92,8 @@ This evaluation is meant to provide a systematic framework to analyse those diff
 Springer provides individual lists of eligible journals for all participants on its web site, those can be [downloaded in PDF Format](https://www.springer.com/de/open-access/springer-open-choice/springer-compact/agreements-dutch-authors) ("Click here for a list of Open Choice eligible subscription-based journals covered by the Open Access agreement with Dutch universities and Academy institutes"). 
 The according files have been obtained for all consortional partners (Netherlands, UK, Sweden, Austria, Finland, Poland, Hungary and the Max Planck Society (MPG)) and can be found [here](https://github.com/cbroschinski/sca_eligible_journals_comparison/tree/master/raw_pdf_lists).
 Springer also provides a full catalogue of published journals as an Excel spreadsheet which can be found [here](https://www.springernature.com/de/librarians/licensing/journals-price-list) ("2019 Springer Nature Journals including Open Access").
+
+**Update, 02/2020**: Eligibility lists are now also provided as spreadsheets ("Hybrid journal list"), so the step of of PDF extraction will no longer be necessary in the future.
 
 ## 3. Data processing
 
